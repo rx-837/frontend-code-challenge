@@ -1,0 +1,34 @@
+<mat-progress-spinner
+  *ngIf="!loadingIsComplete"
+  class="example-margin"
+  [color]="loader.color"
+  [mode]="loader.mode"
+  [value]="loader.value">
+</mat-progress-spinner>
+
+<ng-template [ngIf]="loadingIsComplete && !containErrors">
+  <ng-template [ngIf]="advertisements && advertisements.length > 0">
+    <mat-card class="advertisement-card m-3" *ngFor="let advertisement of advertisements">
+      <img mat-card-image
+           src="{{advertisement.getTitlePicture().advertisementThumbnails.inventory_m.url}}" alt="{{advertisement.getTitle()}}">
+      <mat-card-content class="d-flex flex-column justify-content-between">
+        <h6>{{advertisement.getTitle()}}</h6>
+        <div *ngIf="advertisement.addressIsVisible()"
+             class="color-gray-1 font-size-1">{{advertisement.getPostalCode()}} {{advertisement.getStreet()}} / {{advertisement.getCity()}}</div>
+        <div class="d-flex justify-content-between align-baseline">
+          <b>{{advertisement.getCost()}} &euro;</b>
+          <div class="d-flex align-baseline color-gray-2">
+            <div class="mr-2">{{advertisement.getRoomCount()}} Zimmer</div>
+            <div class="pl-2 border-left-1-gray">ab {{advertisement.getSpacePretty()}} m<sup>2</sup></div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+  <ng-template [ngIf]="advertisements && advertisements.length === 0">
+    <div class="alert alert-info" role="alert">Data is empty. Please try again later.</div>
+  </ng-template>
+</ng-template>
+<ng-template [ngIf]="loadingIsComplete && containErrors">
+  <div class="alert alert-danger" role="alert">Couldn't get data from server. Please try again later.</div>
+</ng-template>
