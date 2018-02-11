@@ -1,0 +1,18 @@
+html, body, app-root {
+  height: 100%;
+}
+body {
+  app-root {
+    @extend .d-flex, .flex-wrap, .justify-content-center, .align-items-center;
+
+    .advertisement-card {
+      max-width: 360px;
+      mat-card-content {
+        height: 150px;
+      }
+      //box-shadow: none!important;
+      //border: 1px solid $gray-1;
+    }
+  }
+}
+
